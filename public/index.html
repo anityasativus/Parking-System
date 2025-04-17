@@ -21,6 +21,26 @@
       align-items: center;
       color: #fff;
       font-size: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .car-design {
+      position: absolute;
+      bottom: 20px;
+      left: -200px; /* Starting from outside the screen (left side) */
+      width: 200px;
+      z-index: -1;
+      animation: moveCar 8s linear infinite;
+    }
+
+    @keyframes moveCar {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(120vw); /* Moves all the way across the screen */
+      }
     }
 
     .container {
@@ -59,7 +79,6 @@
       color: #ddd;
     }
 
-    /* Hover effect on container */
     .container:hover {
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
@@ -70,7 +89,6 @@
       color: #fff;
       font-weight: 500;
     }
-
   </style>
 </head>
 <body>
@@ -78,7 +96,11 @@
     <h1>Smart Parking Slot Tracker</h1>
     <div id="status">Waiting for data...</div>
     <div class="status-text">Parking Slot Status</div>
+    <div class="footer">Made with ❤️ by Anitya</div>
   </div>
+
+  <!-- Car SVG design starting from left side -->
+  <img src="https://static.vecteezy.com/system/resources/thumbnails/023/524/637/small_2x/red-sport-car-design-transparent-background-free-png.png" alt="Car Design" class="car-design" />
 
   <script>
     const socket = io();
