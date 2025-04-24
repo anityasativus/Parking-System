@@ -8,14 +8,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const port = new SerialPort({ path: "COM5", baudRate: 9600 }); // Change COM3 accordingly
+const port = new SerialPort({ path: "COM5", baudRate: 9600 }); 
 const parser = port.pipe(new ReadlineParser({ delimiter: "\r\n" }));
 
-app.use(express.static("public"));
+app.use(express.static("public")); 
 
 parser.on("data", (data) => {
   console.log("Arduino:", data);
-  io.emit("arduino-data", data); // send to client
+  io.emit("arduino-data", data); 
 });
 
 io.on("connection", (socket) => {

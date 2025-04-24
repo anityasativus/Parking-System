@@ -166,25 +166,21 @@
   <script>
     const socket = io();
     const statusDiv = document.getElementById("status");
-    const icon = document.getElementById("icon");
 
     socket.on("arduino-data", (data) => {
-      const cleanData = data?.trim().toLowerCase();
+        const cleanData = data?.trim().toLowerCase();
 
-      if (cleanData === "occupied") {
-        statusDiv.innerText = "Occupied";
-        statusDiv.style.background = "linear-gradient(90deg, #ff4b2b, #ff416c)";
-        icon.innerHTML = `<i class="bi bi-x-circle-fill" style="color: #ff4b4b;"></i>`;
-      } else if (cleanData === "available") {
-        statusDiv.innerText = "Available";
-        statusDiv.style.background = "linear-gradient(90deg, #00ff9d, #00c8ff)";
-        icon.innerHTML = `<i class="bi bi-check-circle-fill" style="color: #00ff9d;"></i>`;
-      } else {
-        statusDiv.innerText = "Unknown";
-        statusDiv.style.background = "linear-gradient(90deg, #ffc107, #ff8c00)";
-        icon.innerHTML = `<i class="bi bi-question-circle-fill" style="color: #ffc107;"></i>`;
-      }
+        // Extract the number of slots left from the Arduino data
+        const match = cleanData.match(/slot left: (\d+)/i);
+        if (match) {
+            const slotsLeft = match[1];
+            statusDiv.innerText = `Slots Available: ${slotsLeft}`;
+            statusDiv.style.background = "linear-gradient(90deg, #00ff9d, #00c8ff)";
+        } else {
+            statusDiv.innerText = "Data Unavailable";
+            statusDiv.style.background = "linear-gradient(90deg, #ffc107, #ff8c00)";
+        }
     });
-  </script>
+</script>
 </body>
 </html>
