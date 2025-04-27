@@ -165,7 +165,7 @@
 
   <script>
     const socket = io();
-    const statusDiv = document.getElementById("status");
+    const statusDiv = document.getElementById(" status");
 
     socket.on("arduino-data", (data) => {
         const cleanData = data?.trim().toLowerCase();
